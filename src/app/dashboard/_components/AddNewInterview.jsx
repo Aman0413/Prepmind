@@ -18,12 +18,14 @@ import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { MockInterview } from "@/models/schema";
+import { useRouter } from "next/navigation";
 
 function AddNewInterview() {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState([]);
   const { user } = useUser();
+  const router = useRouter();
 
   const [data, setData] = useState({
     jobRole: "",
@@ -68,7 +70,12 @@ function AddNewInterview() {
           createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
         })
         .returning({ mockId: MockInterview.mockId });
-      console.log("Inserted Mock Interview", response);
+
+      if (response) {
+        router.push(`/dashboard/interview/${response[0].mockId}`);
+      } else {
+        console.log("Error in saving Interview Questions");
+      }
     } else {
       console.log("Error in generating Interview Questions");
     }
