@@ -5,6 +5,7 @@ import { MockInterview } from "@/models/schema";
 import { db } from "@/utils/db";
 import { eq } from "drizzle-orm";
 import { Lightbulb, WebcamIcon } from "lucide-react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
 
@@ -54,7 +55,11 @@ function Interview({ params }) {
               {process.env.NEXT_PUBLIC_INFORMATION}
             </h2>
           </div>
-          <Button>Start Interview</Button>
+          <Button type="button">
+            <Link href={`/dashboard/interview/${params.interviewId}/start`}>
+              Start Interview
+            </Link>
+          </Button>
         </div>
 
         <div>
