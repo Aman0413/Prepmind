@@ -5,6 +5,8 @@ import { eq } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import QuestionsSection from "./_components/QuestionsSection";
 import RecordAnswerSection from "./_components/RecordAnswerSection";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 function StartInterview({ params }) {
   const [interviewDetails, setInterviewDetails] = useState();
@@ -29,15 +31,51 @@ function StartInterview({ params }) {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-      {/* Questions */}
-      <QuestionsSection
-        mockInterviewQuestion={mockInterviewQuestion}
-        activeQuestionIndex={activeQuestionIndex}
-      />
+    <div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {/* Questions */}
+        <QuestionsSection
+          mockInterviewQuestion={mockInterviewQuestion}
+          activeQuestionIndex={activeQuestionIndex}
+        />
 
-      {/* Video/Audio Recording */}
-      <RecordAnswerSection />
+        {/* Video/Audio Recording */}
+        <RecordAnswerSection
+          mockInterviewQuestion={mockInterviewQuestion}
+          activeQuestionIndex={activeQuestionIndex}
+          interviewDetails={interviewDetails}
+        />
+      </div>
+      <div className="flex justify-end items-center  gap-6 mt-6">
+        {activeQuestionIndex > 0 && (
+          <Button
+            onClick={() => setActiveQuestionIndex(activeQuestionIndex - 1)}
+          >
+            Previous Question
+          </Button>
+        )}
+
+        {
+          /* Next Question */
+          activeQuestionIndex != mockInterviewQuestion?.length - 1 && (
+            <Button
+              onClick={() => setActiveQuestionIndex(activeQuestionIndex + 1)}
+            >
+              Next Question
+            </Button>
+          )
+        }
+
+        {activeQuestionIndex == mockInterviewQuestion?.length - 1 && (
+          <Link
+            href={`/dashboard/interview/${interviewDetails?.mockId}/feedback`}
+          >
+            <Button className="bg-red-500 hover:bg-red-600">
+              End Interview
+            </Button>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }
