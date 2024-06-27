@@ -5,7 +5,6 @@ export default function Home() {
   return (
     <div>
       <Button>Signup</Button>
-      Aman
     </div>
   );
 }
