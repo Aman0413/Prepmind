@@ -112,6 +112,7 @@ function AddNewInterview() {
                       placeholder="Ex. Full Stack Developer"
                       value={data.jobRole}
                       required
+                      className="my-2"
                       onChange={handleChange}
                     />
                   </div>
@@ -124,6 +125,7 @@ function AddNewInterview() {
                       placeholder="Ex. React, Angular, NodeJs, MySql etc"
                       value={data.jobDescription}
                       required
+                      className="my-2"
                       onChange={handleChange}
                     />
                   </div>
@@ -134,6 +136,7 @@ function AddNewInterview() {
                       placeholder="Ex. 5"
                       value={data.yearsOfExperience}
                       required
+                      className="my-2"
                       onChange={handleChange}
                     />
                   </div>
