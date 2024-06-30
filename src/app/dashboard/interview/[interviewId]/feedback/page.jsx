@@ -1,34 +1,46 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
-import { UserAnswer } from "@/models/schema";
-import { db } from "@/utils/db";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
-import { eq } from "drizzle-orm";
+import axios from "axios";
 import { ChevronsUpDownIcon } from "lucide-react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function Feedback({ params }) {
   const [feedback, setFeedback] = useState([]);
   const [rating, setRating] = useState(0);
   const router = useRouter();
 
+  console.log("ID", params.interviewId);
+
   const getFeedback = async () => {
-    const res = await db
-      .select()
-      .from(UserAnswer)
-      .where(eq(UserAnswer.mockIdRef, params.interviewId))
-      .orderBy(UserAnswer.id);
+    try {
+      const res = await axios.post(
+        "/api/v1/dashboard/interview/getmockinterview",
+        {
+          interviewId: params.interviewId,
+        }
+      );
 
-    // TODO : Calculate overall Rating
+      if (res.data.success) {
+        setFeedback(res.data.data);
 
-    setFeedback(res);
+        const overallRating =
+          res.data.data.reduce(
+            (acc, item) => acc + parseFloat(item.rating || 0),
+            0
+          ) / res.data.data.length;
+        setRating(overallRating.toFixed(1));
+      }
+    } catch (error) {
+      toast("Error while fetching interview feedback");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -47,7 +59,7 @@ export default function Feedback({ params }) {
             Here is your Interview Feedback
           </h2>
           <h2 className="text-primary text-lg my-3">
-            Your overall Interview rating: <strong>{}/10 </strong>
+            Your overall Interview rating: <strong>{rating}/10 </strong>
           </h2>
           <h2 className="text-sm text-gray-500 ">
             Find below Interview question with correct answer,Your answer and

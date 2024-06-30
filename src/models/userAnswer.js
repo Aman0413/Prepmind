@@ -2,10 +2,9 @@ import mongoose from "mongoose";
 
 const userAnswerSchema = new mongoose.Schema({
   mockId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "MockInterview",
+    type: String,
+    required: true,
   },
-
   question: {
     type: String,
   },
@@ -19,11 +18,11 @@ const userAnswerSchema = new mongoose.Schema({
     type: String,
   },
   rating: {
-    type: String,
+    type: Number,
   },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
+    required: true,
   },
   createdAt: {
     type: Date,

@@ -1,29 +1,38 @@
 "use client";
-import { MockInterview } from "@/models/schema";
-import { db } from "@/utils/db";
-import { eq } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
 import QuestionsSection from "./_components/QuestionsSection";
 import RecordAnswerSection from "./_components/RecordAnswerSection";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import axios from "axios";
+import { toast } from "sonner";
+import Loader from "@/components/loader/Loader";
 
 function StartInterview({ params }) {
   const [interviewDetails, setInterviewDetails] = useState();
   const [mockInterviewQuestion, setMockInterviewQuestion] = useState();
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const getInterviewDetails = async () => {
-    // getting interview details by mockId from database
-    const res = await db
-      .select()
-      .from(MockInterview)
-      .where(eq(MockInterview.mockId, params.interviewId));
+    try {
+      setLoading(true);
+      const res = await axios.post("/api/v1/dashboard/interview/start", {
+        mockid: params.interviewId,
+      });
 
-    const jsonMockRes = JSON.parse(res[0].jsonMockResp);
-    console.log(jsonMockRes);
-    setMockInterviewQuestion(jsonMockRes);
-    setInterviewDetails(res[0]);
+      if (res.data.success) {
+        setInterviewDetails(res.data.data);
+        const jsonMockRes = JSON.parse(res.data.data.jsonMockResp);
+        setMockInterviewQuestion(jsonMockRes);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      toast.error("Error fetching interview details");
+      setLoading(false);
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -34,10 +43,16 @@ function StartInterview({ params }) {
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Questions */}
-        <QuestionsSection
-          mockInterviewQuestion={mockInterviewQuestion}
-          activeQuestionIndex={activeQuestionIndex}
-        />
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <Loader />
+          </div>
+        ) : (
+          <QuestionsSection
+            mockInterviewQuestion={mockInterviewQuestion}
+            activeQuestionIndex={activeQuestionIndex}
+          />
+        )}
 
         {/* Video/Audio Recording */}
         <RecordAnswerSection
@@ -67,9 +82,7 @@ function StartInterview({ params }) {
         }
 
         {activeQuestionIndex == mockInterviewQuestion?.length - 1 && (
-          <Link
-            href={`/dashboard/interview/${interviewDetails?.mockId}/feedback`}
-          >
+          <Link href={`/dashboard/interview/${interviewDetails?._id}/feedback`}>
             <Button className="bg-red-500 hover:bg-red-600">
               End Interview
             </Button>

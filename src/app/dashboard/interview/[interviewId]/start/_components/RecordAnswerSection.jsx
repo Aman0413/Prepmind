@@ -8,11 +8,8 @@ import { Button } from "@/components/ui/button";
 import useSpeechToText from "react-hook-speech-to-text";
 import { Mic } from "lucide-react";
 import { toast } from "sonner";
-import { chatSession } from "@/utils/GeminiAIModel";
-import { db } from "@/utils/db";
 import { useUser } from "@clerk/nextjs";
-import moment from "moment";
-import { UserAnswer } from "@/models/schema";
+import axios from "axios";
 
 function RecordAnswerSection({
   mockInterviewQuestion,
@@ -47,37 +44,30 @@ function RecordAnswerSection({
   const updateUserAnswer = async () => {
     setLoading(true);
 
-    const feedbackPrompt =
-      "Question: " +
-      mockInterviewQuestion[activeQuestionIndex]?.Question +
-      "User Answer: " +
-      userAnswer +
-      "Depends on question and user answer for give interview please give us rating and feedback for this question in just 3 to 5 lines in JSON format with rating field";
+    try {
+      if (mockInterviewQuestion) {
+        const resp = await axios.post(
+          "/api/v1/dashboard/interview/saveuserans",
+          {
+            question: mockInterviewQuestion[activeQuestionIndex]?.Question,
+            userAnswer,
+            mockId: interviewDetails?._id,
+            correctAns: mockInterviewQuestion[activeQuestionIndex]?.Answer,
+            user: user.id,
+          }
+        );
 
-    const result = await chatSession.sendMessage(feedbackPrompt);
-    const mockJsonResp = result.response
-      .text()
-      .replace("```json", "")
-      .replace("```", "");
-
-    const JsonFeedbackRes = JSON.parse(mockJsonResp);
-
-    // Save user answer to database
-    const resp = await db.insert(UserAnswer).values({
-      mockIdRef: interviewDetails?.mockId,
-      question: mockInterviewQuestion[activeQuestionIndex]?.Question,
-      correctAns: mockInterviewQuestion[activeQuestionIndex]?.Answer,
-      userAns: userAnswer,
-      feedback: JsonFeedbackRes?.feedback,
-      rating: JsonFeedbackRes?.rating,
-      userEmail: user?.primaryEmailAddress?.emailAddress,
-      createdAt: moment().format("DD-MM-YYY"),
-    });
-
-    if (resp) {
-      toast("Answer saved successfully");
-      setUserAnswer("");
-      setResults([]);
+        if (resp.data.success) {
+          toast("Answer saved successfully");
+          setUserAnswer("");
+          setResults([]);
+          setLoading(false);
+        }
+      }
+    } catch (error) {
+      toast("Error while saving answer");
+      console.log(error);
+      setLoading(false);
     }
 
     // Reset the state
@@ -92,7 +82,7 @@ function RecordAnswerSection({
   }, [results]);
 
   useEffect(() => {
-    if (!isRecording && userAnswer.length > 10) {
+    if (!isRecording && userAnswer.length > 5) {
       updateUserAnswer();
     }
   }, [userAnswer]);
@@ -125,11 +115,13 @@ function RecordAnswerSection({
       >
         {isRecording ? (
           <h2 className="text-red-600 flex gap-2">
-            <Mic /> Recording
+            <Mic /> Recording....
           </h2>
         ) : (
           "Record Answer"
         )}
+
+        {loading && " Saving Answer..."}
       </Button>
     </div>
   );

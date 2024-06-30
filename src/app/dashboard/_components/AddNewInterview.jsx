@@ -11,14 +11,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { chatSession } from "@/utils/GeminiAIModel";
-import { Loader2, LoaderCircle } from "lucide-react";
-import { db } from "@/utils/db";
-import { v4 as uuidv4 } from "uuid";
+import { LoaderCircle } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
-import moment from "moment";
-import { MockInterview } from "@/models/schema";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { toast } from "sonner";
 
 function AddNewInterview() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -43,41 +40,24 @@ function AddNewInterview() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
-    const inputPrompt = `Job Role: ${data.jobRole} ,\n Job Description: ${data.jobDescription} ,\n Years of Experience: ${data.yearsOfExperience} ,\n Depends on Job Role and Description & Years of Experience give us ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} Interview Questions along with Answers in JSON format , Give us Question and Answer field in JSON`;
 
-    const res = await chatSession.sendMessage(inputPrompt);
+    try {
+      const res = await axios.post("/api/v1/dashboard/interview", {
+        jobRole: data.jobRole,
+        jobDescription: data.jobDescription,
+        yearsOfExperience: data.yearsOfExperience,
+        userId: user.id,
+      });
 
-    const mockJsonRes = res.response
-      .text()
-      .replace("```json", "")
-      .replace("```", "");
-
-    console.log(JSON.parse(mockJsonRes));
-    setResponse(mockJsonRes);
-
-    if (mockJsonRes) {
-      const response = await db
-        .insert(MockInterview)
-        .values({
-          mockId: uuidv4(),
-          jobPosition: data.jobRole,
-          jobDesc: data.jobDescription,
-          jobExperience: data.yearsOfExperience,
-          jsonMockResp: mockJsonRes,
-          createdBy: user?.primaryEmailAddress.emailAddress,
-          createdAt: moment().format("YYYY-MM-DD HH:mm:ss"),
-        })
-        .returning({ mockId: MockInterview.mockId });
-
-      if (response) {
-        router.push(`/dashboard/interview/${response[0].mockId}`);
-      } else {
-        console.log("Error in saving Interview Questions");
+      if (res.data.success) {
+        router.push(`/dashboard/interview/${res.data.data._id}`);
       }
-    } else {
-      console.log("Error in generating Interview Questions");
+
+      toast.error(res.data.message);
+    } catch (error) {
+      console.log(error);
+      toast.error(res.data.message);
     }
 
     setLoading(false);

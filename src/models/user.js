@@ -26,8 +26,8 @@ const userSchema = new mongoose.Schema({
   },
   mockId: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "MockInterview",
+      type: String,
+      required: true,
     },
   ],
 });

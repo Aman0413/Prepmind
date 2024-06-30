@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const mockInterviewSchema = new mongoose.Schema({
   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
+    required: true,
   },
   jsonMockResp: {
     type: String,

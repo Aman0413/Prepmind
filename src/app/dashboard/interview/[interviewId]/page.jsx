@@ -1,27 +1,31 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { MockInterview } from "@/models/schema";
-import { db } from "@/utils/db";
-import { eq } from "drizzle-orm";
+import axios from "axios";
 import { Lightbulb, WebcamIcon } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
+import { toast } from "sonner";
 
 function Interview({ params }) {
   const [interviewDetails, setInterviewDetails] = useState();
   const [webCamEnabled, setWebCamEnabled] = useState(false);
+  const router = useRouter();
 
   const getInterviewDetails = async () => {
-    // getting interview details by mockId from database
-    const res = await db
-      .select()
-      .from(MockInterview)
-      .where(eq(MockInterview.mockId, params.interviewId));
+    try {
+      const res = await axios.post("/api/v1/dashboard/interview/start", {
+        mockid: params.interviewId,
+      });
 
-    setInterviewDetails(res[0]);
-    console.log(res);
+      if (res.data.success) {
+        setInterviewDetails(res.data.data);
+      }
+    } catch (error) {
+      toast("Error while fetching interview details");
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -55,10 +59,13 @@ function Interview({ params }) {
               {process.env.NEXT_PUBLIC_INFORMATION}
             </h2>
           </div>
-          <Button type="button">
-            <Link href={`/dashboard/interview/${params.interviewId}/start`}>
-              Start Interview
-            </Link>
+          <Button
+            type="button"
+            onClick={() => {
+              router.push(`/dashboard/interview/${params.interviewId}/start`);
+            }}
+          >
+            Start Interview
           </Button>
         </div>
 
