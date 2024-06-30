@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
 
 const connectDB = async () => {
+  if (mongoose.connections[0].readyState) {
+    return true;
+  }
   try {
-    const connectionUrl = process.env.NEXT_PUBLIC_MONGODB_URI;
-    await mongoose.connect(connectionUrl, {
-      useNewUrlParser: true,
-    });
+    await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URI);
     console.log("Database connected");
+    return true;
   } catch (error) {
-    console.error("Database connection error:", error);
+    console.log("Error in connecting database");
+    console.log(error);
   }
 };
 
