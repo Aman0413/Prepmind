@@ -8,6 +8,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,19 +25,26 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
+import { extractTextFromPDF } from "@/helpers/extractTextFromPDF";
 
 function AddNewInterview() {
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState([]);
   const { user } = useUser();
   const router = useRouter();
+  const [file, setFile] = useState(null);
+  const [text, setText] = useState("");
 
   const [data, setData] = useState({
     jobRole: "",
     jobDescription: "",
     yearsOfExperience: "",
+    DifficultyLevel: "medium",
   });
+
+  const handleDifficultyChange = (event) => {
+    setDifficulty(event.target.value);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,26 +54,38 @@ function AddNewInterview() {
     }));
   };
 
+  const handleChangeFile = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      let resumeText = "";
+
+      if (file) {
+        resumeText = await extractTextFromPDF(file);
+        setText(resumeText);
+      }
+
       const res = await axios.post("/api/v1/dashboard/interview", {
         jobRole: data.jobRole,
         jobDescription: data.jobDescription,
         yearsOfExperience: data.yearsOfExperience,
         userId: user.id,
+        resumeText,
+        DifficultyLevel: data.DifficultyLevel,
       });
 
       if (res.data.success) {
         router.push(`/dashboard/interview/${res.data.data._id}`);
       }
-
       toast.error(res.data.message);
     } catch (error) {
-      console.log(error);
       toast.error(res.data.message);
+      console.log(error);
     }
 
     setLoading(false);
@@ -86,7 +114,10 @@ function AddNewInterview() {
                     and years of experience
                   </h2>
                   <div className="mt-7 my-3">
-                    <label className="">Job Role/Job Position</label>
+                    <label className="">
+                      Job Role/Job Position{" "}
+                      <span className="text-red-600">*</span>
+                    </label>
                     <Input
                       name="jobRole"
                       placeholder="Ex. Full Stack Developer"
@@ -98,7 +129,8 @@ function AddNewInterview() {
                   </div>
                   <div className="mt-7 my-3">
                     <label className="">
-                      Job Description/Tech Stack (In short)
+                      Job Description/Tech Stack (In short){" "}
+                      <span className="text-red-600">*</span>
                     </label>
                     <Textarea
                       name="jobDescription"
@@ -110,7 +142,10 @@ function AddNewInterview() {
                     />
                   </div>
                   <div className="mt-7 my-3">
-                    <label className="">Years of Experience</label>
+                    <label className="">
+                      Years of Experience{" "}
+                      <span className="text-red-600">*</span>
+                    </label>
                     <Input
                       name="yearsOfExperience"
                       placeholder="Ex. 5"
@@ -119,6 +154,59 @@ function AddNewInterview() {
                       className="my-2"
                       onChange={handleChange}
                     />
+                  </div>
+                  <div className="mt-7 my-3">
+                    <label className="">
+                      Resume <span className="text-gray-400">(Optional)</span>
+                    </label>
+                    <Input
+                      type="file"
+                      accept="application/pdf"
+                      name="resume"
+                      placeholder="Ex. 5"
+                      required
+                      className="my-2"
+                      onChange={handleChangeFile}
+                    />
+                  </div>
+                  <div className="mt-7 my-3">
+                    <label>
+                      Difficulty Level{" "}
+                      <span className="text-gray-400">
+                        (By default it is set to medium)
+                      </span>
+                    </label>
+                    <Select>
+                      <SelectTrigger className="w-[180px] my-2">
+                        <SelectValue placeholder="Select Difficulty Level" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem
+                          value="easy"
+                          onClick={() => {
+                            handleDifficultyChange("easy");
+                          }}
+                        >
+                          Easy
+                        </SelectItem>
+                        <SelectItem
+                          value="medium"
+                          onClick={() => {
+                            handleDifficultyChange("medium");
+                          }}
+                        >
+                          Medium
+                        </SelectItem>
+                        <SelectItem
+                          value="hard"
+                          onClick={() => {
+                            handleDifficultyChange("hard");
+                          }}
+                        >
+                          Hard
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
                 <div className="flex gap-5 justify-end">

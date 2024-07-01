@@ -5,8 +5,14 @@ import mockInterview from "@/models/mockInterview";
 
 // add new mock interview
 export async function POST(request) {
-  const { jobRole, jobDescription, yearsOfExperience, userId } =
-    await request.json();
+  const {
+    jobRole,
+    jobDescription,
+    yearsOfExperience,
+    userId,
+    resumeText,
+    DifficultyLevel,
+  } = await request.json();
 
   if (!jobRole || !jobDescription || !yearsOfExperience || !userId) {
     return NextResponse.json(
@@ -15,7 +21,23 @@ export async function POST(request) {
     );
   }
 
-  const inputPrompt = `Job Role: ${jobRole} ,\n Job Description: ${jobDescription} ,\n Years of Experience: ${yearsOfExperience} ,\n Depends on Job Role and Description & Years of Experience give us ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} Interview Questions along with Answers in JSON format , Give us Question and Answer field in JSON`;
+  console.log({
+    jobRole,
+    jobDescription,
+    yearsOfExperience,
+    userId,
+    resumeText,
+    DifficultyLevel,
+  });
+
+  const inputPrompt = `Job Role: ${jobRole}
+  Job Description: ${jobDescription},
+  Years of Experience: ${yearsOfExperience},
+  DifficultyLevel: ${DifficultyLevel},
+  Resume Text: ${resumeText ? resumeText : "Not provided"},
+  Based on the provided Job Role, Job Description,Years of Experience and Resume Text then generate ${
+    process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT
+  } interview questions along with answers in JSON format. Please provide the Question and Answer fields in JSON.`;
 
   try {
     // send input prompt to gemini api
@@ -26,6 +48,10 @@ export async function POST(request) {
       .text()
       .replace("```json", "")
       .replace("```", "");
+
+    console.log({
+      mockJsonRes,
+    });
 
     if (mockJsonRes) {
       // save mock interview to database
