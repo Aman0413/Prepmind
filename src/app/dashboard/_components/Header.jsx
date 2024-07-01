@@ -16,7 +16,7 @@ function Header() {
             fontFamily: "Lexend, sans-serif",
           }}
         >
-          PreMind
+          PrepMind
         </h1>
       </Link>
       <ul className="hidden md:flex gap-6">
@@ -43,6 +43,7 @@ function Header() {
         >
           Upgrade
         </li>
+
         <li
           className={`hover:text-primary hover:font-bold transition-all ease-in-out duration-300 cursor-pointer
           ${path === "/dashboard/how" ? "text-primary font-bold" : ""}
