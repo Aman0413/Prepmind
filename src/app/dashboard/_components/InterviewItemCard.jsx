@@ -9,6 +9,9 @@ function InterviewItemCard({ interview }) {
       <h2 className="text-sm text-gray-600">
         {interview?.jobExperience} Year of Experience
       </h2>
+      <h2 className="text-sm text-gray-500">
+        Difficulty Level : {interview?.difficultyLevel}
+      </h2>
       <h2 className="text-sm text-gray-400">
         Created At: {interview.createdAt}
       </h2>

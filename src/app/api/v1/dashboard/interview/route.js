@@ -14,21 +14,18 @@ export async function POST(request) {
     DifficultyLevel,
   } = await request.json();
 
-  if (!jobRole || !jobDescription || !yearsOfExperience || !userId) {
+  if (
+    !jobRole ||
+    !jobDescription ||
+    !yearsOfExperience ||
+    !userId ||
+    !DifficultyLevel
+  ) {
     return NextResponse.json(
       { success: false, message: "Please provide all required fields" },
       { status: 400 }
     );
   }
-
-  console.log({
-    jobRole,
-    jobDescription,
-    yearsOfExperience,
-    userId,
-    resumeText,
-    DifficultyLevel,
-  });
 
   const inputPrompt = `Job Role: ${jobRole}
   Job Description: ${jobDescription},
@@ -49,10 +46,6 @@ export async function POST(request) {
       .replace("```json", "")
       .replace("```", "");
 
-    console.log({
-      mockJsonRes,
-    });
-
     if (mockJsonRes) {
       // save mock interview to database
       await dbConnection();
@@ -62,6 +55,7 @@ export async function POST(request) {
         jobDesc: jobDescription,
         jobExperience: yearsOfExperience,
         jsonMockResp: mockJsonRes,
+        difficultyLevel: DifficultyLevel,
       });
 
       if (res) {

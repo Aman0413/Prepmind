@@ -19,6 +19,8 @@ function Interview({ params }) {
         mockid: params.interviewId,
       });
 
+      console.log(res.data);
+
       if (res.data.success) {
         setInterviewDetails(res.data.data);
       }
@@ -47,6 +49,10 @@ function Interview({ params }) {
             <h2 className="text-lg">
               <strong>Years of Experience:</strong>{" "}
               {interviewDetails?.jobExperience}
+            </h2>
+            <h2 className="text-lg">
+              <strong>Difficulty Level:</strong>{" "}
+              {interviewDetails?.difficultyLevel}
             </h2>
           </div>
           <div className="p-5 border rounded-lg border-yellow-300 bg-yellow-100">

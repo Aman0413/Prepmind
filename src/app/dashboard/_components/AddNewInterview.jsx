@@ -34,17 +34,13 @@ function AddNewInterview() {
   const router = useRouter();
   const [file, setFile] = useState(null);
   const [text, setText] = useState("");
+  const [difficulty, setDifficulty] = useState("Medium");
 
   const [data, setData] = useState({
     jobRole: "",
     jobDescription: "",
     yearsOfExperience: "",
-    DifficultyLevel: "medium",
   });
-
-  const handleDifficultyChange = (event) => {
-    setDifficulty(event.target.value);
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,7 +72,7 @@ function AddNewInterview() {
         yearsOfExperience: data.yearsOfExperience,
         userId: user.id,
         resumeText,
-        DifficultyLevel: data.DifficultyLevel,
+        DifficultyLevel: difficulty,
       });
 
       if (res.data.success) {
@@ -97,7 +93,7 @@ function AddNewInterview() {
         className="p-10 border rounded-lg bg-secondary hover:scale-105 hover:shadow-md cursor-pointer transition-all ease-in-out"
         onClick={() => setOpenDialog(true)}
       >
-        <h2 className=" text-lg text-center">+Add New </h2>
+        <h2 className=" text-lg text-center">+ Add New </h2>
       </div>
 
       <Dialog open={openDialog}>
@@ -176,35 +172,14 @@ function AddNewInterview() {
                         (By default it is set to medium)
                       </span>
                     </label>
-                    <Select>
+                    <Select onValueChange={setDifficulty}>
                       <SelectTrigger className="w-[180px] my-2">
                         <SelectValue placeholder="Select Difficulty Level" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem
-                          value="easy"
-                          onClick={() => {
-                            handleDifficultyChange("easy");
-                          }}
-                        >
-                          Easy
-                        </SelectItem>
-                        <SelectItem
-                          value="medium"
-                          onClick={() => {
-                            handleDifficultyChange("medium");
-                          }}
-                        >
-                          Medium
-                        </SelectItem>
-                        <SelectItem
-                          value="hard"
-                          onClick={() => {
-                            handleDifficultyChange("hard");
-                          }}
-                        >
-                          Hard
-                        </SelectItem>
+                        <SelectItem value="Easy">Easy</SelectItem>
+                        <SelectItem value="Medium">Medium</SelectItem>
+                        <SelectItem value="Hard">Hard</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

@@ -3,6 +3,8 @@ import AddNewInterview from "./_components/AddNewInterview";
 import InterviewList from "./_components/InterviewList";
 
 function Dashboard() {
+
+  
   return (
     <div className="p-10">
       <h1 className="font-bold text-2xl">Dashboard Page</h1>
