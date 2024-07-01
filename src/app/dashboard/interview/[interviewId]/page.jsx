@@ -6,7 +6,7 @@ import { Lightbulb, WebcamIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 function Interview({ params }) {
   const [interviewDetails, setInterviewDetails] = useState();
@@ -25,7 +25,7 @@ function Interview({ params }) {
         setInterviewDetails(res.data.data);
       }
     } catch (error) {
-      toast("Error while fetching interview details");
+      toast.error("Error while fetching interview details");
       console.log(error);
     }
   };

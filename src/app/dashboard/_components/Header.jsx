@@ -29,28 +29,34 @@ function Header() {
             Dashboard
           </li>
         </Link>
-        <li
-          className={`hover:text-primary hover:font-bold transition-all ease-in-out duration-300 cursor-pointer
+        <Link href={"#question"}>
+          <li
+            className={`hover:text-primary hover:font-bold transition-all ease-in-out duration-300 cursor-pointer
           ${path === "/dashboard/questions" ? "text-primary font-bold" : ""}
           `}
-        >
-          Questions
-        </li>
-        <li
-          className={`hover:text-primary hover:font-bold transition-all ease-in-out duration-300 cursor-pointer
+          >
+            Questions
+          </li>
+        </Link>
+        <Link href={'#features'}>
+          <li
+            className={`hover:text-primary hover:font-bold transition-all ease-in-out duration-300 cursor-pointer
           ${path === "/dashboard/upgrade" ? "text-primary font-bold" : ""}
           `}
-        >
-          Upgrade
-        </li>
+          >
+            Features
+          </li>
+        </Link>
 
-        <li
-          className={`hover:text-primary hover:font-bold transition-all ease-in-out duration-300 cursor-pointer
+        <Link href={"#howitworks"}>
+          <li
+            className={`hover:text-primary hover:font-bold transition-all ease-in-out duration-300 cursor-pointer
           ${path === "/dashboard/how" ? "text-primary font-bold" : ""}
           `}
-        >
-          How it Works?
-        </li>
+          >
+            How it Works?
+          </li>
+        </Link>
       </ul>
 
       <UserButton />

@@ -73,7 +73,9 @@ function Footer() {
 
             {/* Add other social media icons similarly */}
           </div>
-          <div className="my-5">© Copyright 2020. All Rights Reserved.</div>
+          <div className="my-5">
+            &copy; Copyright {new Date().getFullYear()}. All Rights Reserved.
+          </div>
         </div>
       </div>
     </footer>

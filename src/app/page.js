@@ -9,10 +9,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <div
-        className="py-2 flex  flex-col justify-center items-center gap-2 "
-        id="home"
-      >
+      <div className="my-gradient py-2 flex  flex-col justify-center items-center gap-2 ">
         <div className=" flex flex-col justify-center items-center gap-5  mt-20">
           <div className="w-full flex flex-col justify-center items-center gap-3 p-2 ">
             <h1 className="text-4xl text-black font-extrabold mx-auto md:text-6xl lg:text-5xl text-center">

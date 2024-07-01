@@ -3,7 +3,10 @@ import React from "react";
 function HowItWorks() {
   return (
     <div>
-      <section id="home" className="relative bg-white  py-10 sm:py-16 lg:py-24">
+      <section
+        id="howitworks"
+        className="relative  bg-white  py-10 sm:py-16 lg:py-24 rounded-lg"
+      >
         <div className=" p-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-4xl text-black font-extrabold mx-auto md:text-6xl lg:text-5xl">

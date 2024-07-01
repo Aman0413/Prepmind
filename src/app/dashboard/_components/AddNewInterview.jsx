@@ -24,7 +24,7 @@ import { LoaderCircle } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import { extractTextFromPDF } from "@/helpers/extractTextFromPDF";
 
 function AddNewInterview() {

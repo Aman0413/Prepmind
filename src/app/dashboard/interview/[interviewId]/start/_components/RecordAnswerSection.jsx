@@ -7,7 +7,7 @@ import webcamImg from "../../../../../../../public/webcam.png";
 import { Button } from "@/components/ui/button";
 import useSpeechToText from "react-hook-speech-to-text";
 import { Mic } from "lucide-react";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 
@@ -58,14 +58,14 @@ function RecordAnswerSection({
         );
 
         if (resp.data.success) {
-          toast("Answer saved successfully");
+          toast.success("Answer saved successfully");
           setUserAnswer("");
           setResults([]);
           setLoading(false);
         }
       }
     } catch (error) {
-      toast("Error while saving answer");
+      toast.error("Error while saving answer");
       console.log(error);
       setLoading(false);
     }

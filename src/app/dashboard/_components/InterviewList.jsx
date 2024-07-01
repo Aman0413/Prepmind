@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
 import InterviewItemCard from "./InterviewItemCard";
 import axios from "axios";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import Loader from "@/components/loader/Loader";
 
 export default function InterviewList() {
@@ -24,7 +24,7 @@ export default function InterviewList() {
 
       if (res.data.message === "User not found") {
         setLoading(false);
-        toast("User not found");
+        toast.success("User not found");
         return;
       }
 
@@ -34,7 +34,7 @@ export default function InterviewList() {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      toast("Error while fetching interview list");
+      toast.error("Error while fetching interview list");
       console.log(error);
     }
   };

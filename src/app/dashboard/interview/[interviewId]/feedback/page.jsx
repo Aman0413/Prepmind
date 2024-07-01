@@ -9,7 +9,7 @@ import axios from "axios";
 import { ChevronsUpDownIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 export default function Feedback({ params }) {
   const [feedback, setFeedback] = useState([]);
@@ -38,7 +38,7 @@ export default function Feedback({ params }) {
         setRating(overallRating.toFixed(1));
       }
     } catch (error) {
-      toast("Error while fetching interview feedback");
+      toast.error("Error while fetching interview feedback");
       console.log(error);
     }
   };

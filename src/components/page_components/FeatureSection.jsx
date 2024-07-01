@@ -2,7 +2,7 @@ import React from "react";
 
 function FeatureSection() {
   return (
-    <div className="bg-white p-4" id="home">
+    <div className="bg-white p-4 my-gradient" id="features">
       <div className="max-w-2xl mx-auto text-center my-10">
         <h2 className="text-4xl text-black font-extrabold mx-auto md:text-6xl lg:text-5xl">
           Our Features
