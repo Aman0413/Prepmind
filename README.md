@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Prepmind
+
+Prepmind is an AI mock interview platform where users can practice mock interviews tailored to their experience, role, and job description. Users can upload their resumes, receive AI-generated interview questions, provide answers, and receive real-time feedback and detailed reports.
+
+## Live Demo
+
+Visit the [Prepmind Live Demo](https://prepmind.vercel.app/) to explore the platform.
+
+## Table of Contents
+
+- [About](#about)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+## About
+
+Prepmind is designed to help job seekers improve their interview skills through personalized mock interviews. The platform leverages AI to create tailored interview questions, provide feedback, and generate detailed performance reports.
+
+## Features
+
+- **AI-Generated Questions:** Customize interview questions based on user-provided details.
+- **Real-Time Feedback:** Receive instant feedback during the interview session.
+- **Detailed Reports:** Review comprehensive reports highlighting strengths and areas for improvement.
+- **Resume Upload:** Users can upload their resumes for more personalized interview practice.
 
 ## Getting Started
 
-First, run the development server:
+### Installation
+
+Clone the repository and install dependencies.
 
 ```bash
+# Clone the repository
+git clone https://github.com/Aman0413/AI-Mock-Interview
+
+
+# Install dependencies
+npm install
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
