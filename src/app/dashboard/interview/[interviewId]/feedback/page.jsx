@@ -16,8 +16,6 @@ export default function Feedback({ params }) {
   const [rating, setRating] = useState(0);
   const router = useRouter();
 
-  console.log("ID", params.interviewId);
-
   const getFeedback = async () => {
     try {
       const res = await axios.post(
@@ -38,8 +36,7 @@ export default function Feedback({ params }) {
         setRating(overallRating.toFixed(1));
       }
     } catch (error) {
-      toast.error("Error while fetching interview feedback");
-      console.log(error);
+      toast.error(error.response.data?.message);
     }
   };
 

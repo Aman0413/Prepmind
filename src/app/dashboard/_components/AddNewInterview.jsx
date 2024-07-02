@@ -78,7 +78,7 @@ function AddNewInterview() {
       if (res.data.success) {
         router.push(`/dashboard/interview/${res.data.data._id}`);
       }
-      toast.error(res.data.message);
+      toast.success(res.data.message);
     } catch (error) {
       toast.error(res.data.message);
       console.log(error);
