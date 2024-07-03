@@ -1,7 +1,11 @@
 import { Lightbulb, Volume2 } from "lucide-react";
 import React from "react";
 
-function QuestionsSection({ mockInterviewQuestion, activeQuestionIndex }) {
+function QuestionsSection({
+  mockInterviewQuestion,
+  activeQuestionIndex,
+  setActiveQuestionIndex,
+}) {
   const textToSpeech = (text) => {
     if (!text) return;
     if ("speechSynthesis" in window) {
@@ -27,6 +31,7 @@ function QuestionsSection({ mockInterviewQuestion, activeQuestionIndex }) {
                   ? "bg-primary text-white"
                   : "bg-secondary text-black"
               }`}
+              onClick={() => setActiveQuestionIndex(index)}
             >
               Question #{index + 1}
             </h2>

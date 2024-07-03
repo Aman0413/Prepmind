@@ -107,7 +107,7 @@ function RecordAnswerSection({
 
       <Button
         variant="outline"
-        className="my-10"
+        className=""
         onClick={startStopRecording}
         disabled={loading}
       >

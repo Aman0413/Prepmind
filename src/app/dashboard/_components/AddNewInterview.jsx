@@ -164,7 +164,6 @@ function AddNewInterview() {
                       accept="application/pdf"
                       name="resume"
                       placeholder="Ex. 5"
-                      required
                       className="my-2"
                       onChange={handleChangeFile}
                     />
