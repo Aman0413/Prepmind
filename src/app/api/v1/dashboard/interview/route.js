@@ -5,14 +5,16 @@ import mockInterview from "@/models/mockInterview";
 
 // add new mock interview
 export async function POST(request) {
+  const {
+    jobRole,
+    yearsOfExperience,
+    userId,
+    jobDescription,
+    DifficultyLevel,
+    resumeText,
+  } = await request.json();
   try {
-    if (
-      !jobRole ||
-      !jobDescription ||
-      !yearsOfExperience ||
-      !userId ||
-      !DifficultyLevel
-    ) {
+    if (!jobRole || !jobDescription || !userId || !yearsOfExperience) {
       return NextResponse.json(
         { success: false, message: "Please provide all required fields" },
         { status: 400 }

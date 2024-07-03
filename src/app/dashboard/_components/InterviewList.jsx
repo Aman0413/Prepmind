@@ -33,7 +33,9 @@ export default function InterviewList() {
         toast.error(res.data.message || "Error while fetching interview list");
       }
     } catch (error) {
-      toast.error("Error while fetching interview list");
+      toast.error(
+        error.response?.data?.message || "Error while fetching interview list"
+      );
       console.error("Error:", error);
     } finally {
       setLoading(false);

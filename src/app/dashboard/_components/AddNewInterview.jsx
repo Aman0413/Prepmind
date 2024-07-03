@@ -77,15 +77,11 @@ function AddNewInterview() {
 
       if (res.data.success) {
         router.push(`/dashboard/interview/${res.data.data._id}`);
-        toast.success(res.data.message);
-      } else {
-        toast.error(res.data.message);
       }
+      toast.success(res.data.message);
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "An error occurred. Please try again."
-      );
-      console.error("Error while submitting interview:", error);
+      toast.error("Error while creating interview");
+      console.log(error);
     } finally {
       setLoading(false);
     }
@@ -199,7 +195,7 @@ function AddNewInterview() {
                     {loading ? (
                       <>
                         <LoaderCircle className="animate-spin" />
-                        `Generating Interview Questions`
+                        Generating Interview Questions
                       </>
                     ) : (
                       "Start Interview"

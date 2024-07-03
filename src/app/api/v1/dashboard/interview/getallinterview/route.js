@@ -16,9 +16,8 @@ export async function POST(request) {
 
   try {
     const res = await MockInterview.find({ user: userId }).sort({
-      _id: -1,
+      createdAt: -1,
     });
-
     if (!res.length) {
       return NextResponse.json(
         { success: false, message: "No user's answer found" },
