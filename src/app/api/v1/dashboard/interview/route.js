@@ -5,29 +5,21 @@ import mockInterview from "@/models/mockInterview";
 
 // add new mock interview
 export async function POST(request) {
-  const {
-    jobRole,
-    jobDescription,
-    yearsOfExperience,
-    userId,
-    resumeText,
-    DifficultyLevel,
-  } = await request.json();
+  try {
+    if (
+      !jobRole ||
+      !jobDescription ||
+      !yearsOfExperience ||
+      !userId ||
+      !DifficultyLevel
+    ) {
+      return NextResponse.json(
+        { success: false, message: "Please provide all required fields" },
+        { status: 400 }
+      );
+    }
 
-  if (
-    !jobRole ||
-    !jobDescription ||
-    !yearsOfExperience ||
-    !userId ||
-    !DifficultyLevel
-  ) {
-    return NextResponse.json(
-      { success: false, message: "Please provide all required fields" },
-      { status: 400 }
-    );
-  }
-
-  const inputPrompt = `Job Role: ${jobRole}
+    const inputPrompt = `Job Role: ${jobRole}
   Job Description: ${jobDescription},
   Years of Experience: ${yearsOfExperience},
   DifficultyLevel: ${DifficultyLevel},
@@ -36,7 +28,6 @@ export async function POST(request) {
     process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT
   } interview questions along with answers in JSON format. Please provide the Question and Answer fields in JSON.`;
 
-  try {
     // send input prompt to gemini api
     const res = await chatSession.sendMessage(inputPrompt);
 
@@ -68,10 +59,6 @@ export async function POST(request) {
           { status: 200 }
         );
       }
-      return NextResponse.json(
-        { success: false, message: "Error while creating mock interview" },
-        { status: 500 }
-      );
     } else {
       return NextResponse.json(
         { success: false, message: "Error while creating mock interview" },
@@ -80,7 +67,7 @@ export async function POST(request) {
     }
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: "Error" },
+      { success: false, message: "Error while creating mock interview " },
       { status: 500 }
     );
   }

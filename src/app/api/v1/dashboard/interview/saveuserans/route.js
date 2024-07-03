@@ -5,31 +5,31 @@ import { chatSession } from "@/utils/GeminiAIModel";
 
 // save user answer
 export async function POST(request) {
-  const { question, userAnswer, mockId, correctAns, user } =
-    await request.json();
-
-  if (!userAnswer) {
-    return NextResponse.json(
-      { success: false, message: "Please provide user answer" },
-      { status: 400 }
-    );
-  }
-
-  if (!question || !mockId || !correctAns || !user) {
-    return NextResponse.json(
-      { success: false, message: "Please provide all required fields" },
-      { status: 400 }
-    );
-  }
-
-  const feedbackPrompt =
-    "Question: " +
-    question +
-    "User Answer: " +
-    userAnswer +
-    "Depends on question and user answer for give interview please give us rating and feedback for this question in just 3 to 5 lines in JSON format with rating field rating should be between 1 to 5.";
-
   try {
+    const { question, userAnswer, mockId, correctAns, user } =
+      await request.json();
+
+    if (!userAnswer) {
+      return NextResponse.json(
+        { success: false, message: "Please provide user answer" },
+        { status: 400 }
+      );
+    }
+
+    if (!question || !mockId || !correctAns || !user) {
+      return NextResponse.json(
+        { success: false, message: "Please provide all required fields" },
+        { status: 400 }
+      );
+    }
+
+    const feedbackPrompt =
+      "Question: " +
+      question +
+      "User Answer: " +
+      userAnswer +
+      "Depends on question and user answer for give interview please give us rating and feedback for this question in just 3 to 5 lines in JSON format with rating field rating should be between 1 to 5.";
+
     await dbConnection();
 
     const result = await chatSession.sendMessage(feedbackPrompt);

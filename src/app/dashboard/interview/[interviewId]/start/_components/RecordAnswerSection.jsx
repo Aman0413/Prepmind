@@ -33,7 +33,7 @@ function RecordAnswerSection({
     useLegacyResults: false,
   });
 
-  const startStopRecording = async () => {
+  const startStopRecording = () => {
     if (isRecording) {
       stopSpeechToText();
     } else {
@@ -61,22 +61,20 @@ function RecordAnswerSection({
           toast.success("Answer saved successfully");
           setUserAnswer("");
           setResults([]);
-          setLoading(false);
+        } else {
+          toast.error("Failed to save answer");
         }
       }
     } catch (error) {
-      toast.error("Error while saving answer");
+      toast.error("Error while saving answer: " + error.message);
       console.log(error);
+    } finally {
       setLoading(false);
     }
-
-    // Reset the state
-    setResults([]);
-    setLoading(false);
   };
 
   useEffect(() => {
-    results.map((result) => {
+    results.forEach((result) => {
       setUserAnswer((prevAns) => prevAns + result?.transcript);
     });
   }, [results]);
@@ -89,7 +87,7 @@ function RecordAnswerSection({
 
   return (
     <div className="flex justify-center items-center flex-col flex-1">
-      <div className="flex flex-col justify-center items-center rounded-lg p-5 my-20 bg-black">
+      <div className="flex flex-col justify-center items-center rounded-lg p-5 my-20 bg-black relative">
         <Image
           src={webcamImg}
           alt="webcam-logo"
@@ -109,7 +107,7 @@ function RecordAnswerSection({
 
       <Button
         variant="outline"
-        classNamem="my-10"
+        className="my-10"
         onClick={startStopRecording}
         disabled={loading}
       >
@@ -120,7 +118,6 @@ function RecordAnswerSection({
         ) : (
           "Record Answer"
         )}
-
         {loading && " Saving Answer..."}
       </Button>
     </div>

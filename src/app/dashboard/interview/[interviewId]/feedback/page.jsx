@@ -27,16 +27,18 @@ export default function Feedback({ params }) {
 
       if (res.data.success) {
         setFeedback(res.data.data);
-
-        const overallRating =
+        const overallRating = (
           res.data.data.reduce(
             (acc, item) => acc + parseFloat(item.rating || 0),
             0
-          ) / res.data.data.length;
-        setRating(overallRating.toFixed(1));
+          ) / res.data.data.length
+        ).toFixed(1);
+        setRating(overallRating);
+      } else {
+        toast.error(res.data.message || "Error fetching feedback");
       }
     } catch (error) {
-      toast.error(error.response.data?.message);
+      toast.error(error.response?.data?.message || "Error fetching feedback");
     }
   };
 

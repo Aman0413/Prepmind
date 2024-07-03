@@ -77,14 +77,18 @@ function AddNewInterview() {
 
       if (res.data.success) {
         router.push(`/dashboard/interview/${res.data.data._id}`);
+        toast.success(res.data.message);
+      } else {
+        toast.error(res.data.message);
       }
-      toast.success(res.data.message);
     } catch (error) {
-      toast.error(res.data.message);
-      console.log(error);
+      toast.error(
+        error.response?.data?.message || "An error occurred. Please try again."
+      );
+      console.error("Error while submitting interview:", error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (

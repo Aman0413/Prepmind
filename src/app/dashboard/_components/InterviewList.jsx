@@ -13,6 +13,9 @@ export default function InterviewList() {
   const [interviewList, setInterviewList] = useState([]);
 
   const getInterviewList = async () => {
+    if (!user) {
+      return;
+    }
     try {
       setLoading(true);
       const res = await axios.post(
@@ -23,19 +26,17 @@ export default function InterviewList() {
       );
 
       if (res.data.message === "User not found") {
-        setLoading(false);
-        toast.success("User not found");
-        return;
-      }
-
-      if (res.data.success) {
+        toast.error("User not found");
+      } else if (res.data.success) {
         setInterviewList(res.data.data);
+      } else {
+        toast.error(res.data.message || "Error while fetching interview list");
       }
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
       toast.error("Error while fetching interview list");
-      console.log(error);
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 

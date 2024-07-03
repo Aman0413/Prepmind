@@ -19,10 +19,12 @@ function Interview({ params }) {
         mockid: params.interviewId,
       });
 
-      console.log(res.data);
-
       if (res.data.success) {
         setInterviewDetails(res.data.data);
+      } else {
+        toast.error(
+          res.data.message || "Error while fetching interview details"
+        );
       }
     } catch (error) {
       toast.error("Error while fetching interview details");
