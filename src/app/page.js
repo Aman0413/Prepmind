@@ -25,9 +25,9 @@ export default function Home() {
                   ],
                   autoStart: true,
                   loop: true,
-                  delay: 50,
-                  deleteSpeed: 30,
-                  pauseFor: 3000,
+                  delay: 80,
+                  deleteSpeed: 50,
+                  pauseFor: 4000,
                 }}
               />
             </h1>
