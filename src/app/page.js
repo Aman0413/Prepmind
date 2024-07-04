@@ -6,7 +6,6 @@ import Footer from "@/components/page_components/Footer";
 import HowItWorks from "@/components/page_components/HowItWorks";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useEffect } from "react";
 import Typewriter from "typewriter-effect";
 
 export default function Home() {
