@@ -86,7 +86,7 @@ function ChatBot() {
                 {loading ? <Loader2 text={"Generating...."} /> : "  Submit"}
               </Button>
 
-              <DrawerClose>
+              <DrawerClose asChild>
                 <Button variant="outline">Close</Button>
               </DrawerClose>
             </DrawerFooter>

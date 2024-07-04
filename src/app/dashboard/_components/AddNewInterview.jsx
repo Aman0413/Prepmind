@@ -96,7 +96,7 @@ function AddNewInterview() {
         <h2 className=" text-lg text-center">+ Add New </h2>
       </div>
 
-      <Dialog open={openDialog} className="">
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="max-w-2xl h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl">
