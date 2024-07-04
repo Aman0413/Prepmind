@@ -49,7 +49,8 @@ export default function InterviewList() {
   return (
     <div>
       <h2 className="font-medium text-lg">Previous Mock Interview</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-4">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-4 ">
         {loading ? (
           <div className="flex justify-center items-center">
             <Loader />
@@ -61,7 +62,7 @@ export default function InterviewList() {
           })
         )}
 
-        {interviewList.length <= 0 && (
+        {!interviewList && interviewList.length <= 0 && (
           <h2 className="text-gray-500 text-lg">No previous interview found</h2>
         )}
       </div>
