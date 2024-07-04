@@ -59,7 +59,7 @@ export default function InterviewList() {
         )}
 
         {!loading && !interviewList.length > 0 && (
-          <h2 className="text-gray-500 text-lg">No previous interview found</h2>
+          <h2 className="text-gray-500 ">No previous interview found</h2>
         )}
       </div>
     </div>

@@ -90,7 +90,9 @@ const OverallRatingChart = ({ userId }) => {
 
       {loading && <h2 className="text-gray-500">Chart is Loading....</h2>}
       {!loading && !chartData && (
-        <h2 className="text-gray-500">No data available</h2>
+        <h2 className="text-gray-500">
+          Please start an interview to see the overall rating
+        </h2>
       )}
     </div>
   );
