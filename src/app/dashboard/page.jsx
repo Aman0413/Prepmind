@@ -11,12 +11,12 @@ function Dashboard() {
   if (!user) return null;
 
   return (
-    <div className="p-10">
+    <div className="py-10 px-2">
       <h1 className="font-bold text-2xl">Dashboard Page</h1>
       <h2 className="text-gray-500 mt-5">
         Create and start your AI Mockup Interview
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 my-5  items-center gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 my-5  items-center gap-8 bg-red-200 ">
         <AddNewInterview />
         <OverallRatingChart userId={user.id} />
       </div>

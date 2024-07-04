@@ -14,6 +14,7 @@ import {
   Legend,
 } from "chart.js";
 import Loader from "@/components/loader/Loader";
+import toast from "react-hot-toast";
 
 ChartJS.register(
   CategoryScale,
@@ -27,15 +28,18 @@ ChartJS.register(
 
 const OverallRatingChart = ({ userId }) => {
   const [chartData, setChartData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await axios.post(
           "/api/v1/dashboard/interview/overallrating",
           { userId }
         );
 
+        setLoading(false);
         const { totalAnswers, averageRating } = response.data.data;
         setChartData({
           labels: ["Total Answers", "Average Rating"],
@@ -51,6 +55,7 @@ const OverallRatingChart = ({ userId }) => {
           ],
         });
       } catch (error) {
+        setLoading(false);
         console.error("Error fetching chart data", error);
       }
     };
@@ -60,7 +65,7 @@ const OverallRatingChart = ({ userId }) => {
 
   return (
     <div>
-      {chartData ? (
+      {chartData && (
         <Line
           data={chartData}
           options={{
@@ -81,10 +86,11 @@ const OverallRatingChart = ({ userId }) => {
             },
           }}
         />
-      ) : (
-        <p>
-          <Loader />
-        </p>
+      )}
+
+      {loading && <h2 className="text-gray-500">Chart is Loading....</h2>}
+      {!loading && !chartData && (
+        <h2 className="text-gray-500">No data available</h2>
       )}
     </div>
   );

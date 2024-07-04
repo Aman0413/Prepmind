@@ -96,8 +96,8 @@ function AddNewInterview() {
         <h2 className=" text-lg text-center">+ Add New </h2>
       </div>
 
-      <Dialog open={openDialog}>
-        <DialogContent className="max-w-2xl">
+      <Dialog open={openDialog} className="">
+        <DialogContent className="max-w-2xl h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl">
               Tell us more about your Job interviewing

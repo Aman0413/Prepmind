@@ -25,12 +25,8 @@ export default function InterviewList() {
         }
       );
 
-      if (res.data.message === "User not found") {
-        toast.error("User not found");
-      } else if (res.data.success) {
+      if (res.data.success) {
         setInterviewList(res.data.data);
-      } else {
-        toast.error(res.data.message || "Error while fetching interview list");
       }
     } catch (error) {
       toast.error(
@@ -62,7 +58,7 @@ export default function InterviewList() {
           })
         )}
 
-        {!interviewList && interviewList.length <= 0 && (
+        {!loading && !interviewList.length > 0 && (
           <h2 className="text-gray-500 text-lg">No previous interview found</h2>
         )}
       </div>
