@@ -6,10 +6,12 @@ import InterviewList from "./_components/InterviewList";
 import OverallRatingChart from "./_components/OverallRatingChart";
 import { useUser } from "@clerk/nextjs";
 
+
 function Dashboard() {
   const { user } = useUser();
   if (!user) return null;
 
+  
   return (
     <div className="py-10 px-2">
       <h1 className="font-bold text-2xl">Dashboard Page</h1>
