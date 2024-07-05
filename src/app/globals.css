@@ -150,3 +150,14 @@ body{
      transform: rotate(45deg) rotateX(-385deg) rotateY(385deg);
     }
    }
+
+   /* A4 size paper css */
+
+   .a4Div {
+    width: 794px; /* A4 width in pixels at 96 DPI */
+    height: 1123px; /* A4 height in pixels at 96 DPI */
+    border: 1px solid black; /* Optional: border to visualize the A4 size */
+    margin: auto; /* Center the div */
+    padding: 20px; /* Optional: padding for inner content */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
