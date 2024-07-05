@@ -97,7 +97,7 @@ function AddNewInterview() {
       </div>
 
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent className="max-w-2xl h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl h-[80vh] overflow-y-auto ">
           <DialogHeader>
             <DialogTitle className="text-2xl">
               Tell us more about your Job interviewing
@@ -109,7 +109,7 @@ function AddNewInterview() {
                     Add Details about your job position/role, Job description
                     and years of experience
                   </h2>
-                  <div className="mt-7 my-3">
+                  <div className="mt-7 my-3 text-left">
                     <label className="">
                       Job Role/Job Position{" "}
                       <span className="text-red-600">*</span>
@@ -123,7 +123,7 @@ function AddNewInterview() {
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="mt-7 my-3">
+                  <div className="mt-7 my-3 text-left">
                     <label className="">
                       Job Description/Tech Stack (In short){" "}
                       <span className="text-red-600">*</span>
@@ -137,7 +137,7 @@ function AddNewInterview() {
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="mt-7 my-3">
+                  <div className="mt-7 my-3 text-left">
                     <label className="">
                       Years of Experience{" "}
                       <span className="text-red-600">*</span>
@@ -151,7 +151,7 @@ function AddNewInterview() {
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="mt-7 my-3">
+                  <div className="mt-7 my-3 text-left">
                     <label className="">
                       Resume <span className="text-gray-400">(Optional)</span>
                     </label>
@@ -164,7 +164,7 @@ function AddNewInterview() {
                       onChange={handleChangeFile}
                     />
                   </div>
-                  <div className="mt-7 my-3">
+                  <div className="mt-7 my-3 text-left">
                     <label>
                       Difficulty Level{" "}
                       <span className="text-gray-400">
