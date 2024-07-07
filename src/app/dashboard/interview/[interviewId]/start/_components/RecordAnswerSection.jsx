@@ -86,8 +86,23 @@ function RecordAnswerSection({
   }, [userAnswer]);
 
   return (
-    <div className="flex justify-center items-center flex-col flex-1">
-      <div className="flex flex-col justify-center items-center rounded-lg p-5 my-20 bg-black relative">
+    <div className="flex justify-center items-center flex-col flex-1 ">
+      <Button
+        variant="outline"
+        className=""
+        onClick={startStopRecording}
+        disabled={loading}
+      >
+        {isRecording ? (
+          <h2 className="text-red-600 flex gap-2">
+            <Mic /> Recording....
+          </h2>
+        ) : (
+          "Record Answer"
+        )}
+        {loading && " Saving Answer..."}
+      </Button>
+      <div className="flex flex-col justify-center items-center rounded-lg p-5 my-10 bg-black relative">
         <Image
           src={webcamImg}
           alt="webcam-logo"
@@ -104,22 +119,6 @@ function RecordAnswerSection({
           mirrored={true}
         />
       </div>
-
-      <Button
-        variant="outline"
-        className=""
-        onClick={startStopRecording}
-        disabled={loading}
-      >
-        {isRecording ? (
-          <h2 className="text-red-600 flex gap-2">
-            <Mic /> Recording....
-          </h2>
-        ) : (
-          "Record Answer"
-        )}
-        {loading && " Saving Answer..."}
-      </Button>
     </div>
   );
 }

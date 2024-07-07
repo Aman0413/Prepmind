@@ -1,4 +1,5 @@
 "use client";
+import Loader from "@/components/loader/Loader";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -14,10 +15,12 @@ import toast from "react-hot-toast";
 export default function Feedback({ params }) {
   const [feedback, setFeedback] = useState([]);
   const [rating, setRating] = useState(0);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const getFeedback = async () => {
     try {
+      setLoading(true);
       const res = await axios.post(
         "/api/v1/dashboard/interview/getmockinterview",
         {
@@ -37,7 +40,9 @@ export default function Feedback({ params }) {
       } else {
         toast.error(res.data.message || "Error fetching feedback");
       }
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       toast.error(error.response?.data?.message || "Error fetching feedback");
     }
   };
@@ -97,6 +102,13 @@ export default function Feedback({ params }) {
             })}
           <Button onClick={() => router.replace("/dashboard")}>Go Home</Button>
         </>
+      )}
+
+      {/* Loading sate */}
+      {loading && (
+        <div className="w-full h-screen flex justify-center items-center">
+          <Loader />
+        </div>
       )}
     </div>
   );
