@@ -37,8 +37,6 @@ export default function Feedback({ params }) {
           ) / res.data.data.length
         ).toFixed(1);
         setRating(overallRating);
-      } else {
-        toast.error(res.data.message || "Error fetching feedback");
       }
       setLoading(false);
     } catch (error) {
@@ -52,10 +50,14 @@ export default function Feedback({ params }) {
   }, []);
   return (
     <div className="p-10">
-      {feedback?.length <= 0 ? (
-        <h2 className="font-bold text-xl text-gray-500">
-          No interview Feedback{" "}
-        </h2>
+      {loading ? (
+        <div className="w-full h-screen flex justify-center items-center">
+          <Loader />
+        </div>
+      ) : feedback.length <= 0 ? (
+        <div className="font-bold text-lg md:text-xl text-gray-400 flex justify-center items-center">
+          No interview Feedback Found
+        </div>
       ) : (
         <>
           <h2 className="text-3xl font-bold text-green-500">Congratulation!</h2>
@@ -102,13 +104,6 @@ export default function Feedback({ params }) {
             })}
           <Button onClick={() => router.replace("/dashboard")}>Go Home</Button>
         </>
-      )}
-
-      {/* Loading sate */}
-      {loading && (
-        <div className="w-full h-screen flex justify-center items-center">
-          <Loader />
-        </div>
       )}
     </div>
   );
