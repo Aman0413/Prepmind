@@ -26,6 +26,9 @@ Prepmind is designed to help job seekers improve their interview skills through 
 - **Real-Time Feedback:** Receive instant feedback during the interview session.
 - **Detailed Reports:** Review comprehensive reports highlighting strengths and areas for improvement.
 - **Resume Upload:** Users can upload their resumes for more personalized interview practice.
+- **AI Chat Bot:** Ask questions to our AI chatbot for additional interview tips and guidance.
+- **Delete Mock Interviews:** Easily manage and delete your mock interviews.
+- **Overall Rating:** View the overall rating of all your interview performances.
 
 ## Getting Started
 

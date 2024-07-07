@@ -38,7 +38,7 @@ function Header() {
             Questions
           </li>
         </Link>
-        <Link href={'#features'}>
+        <Link href={"#features"}>
           <li
             className={`hover:text-primary hover:font-bold transition-all ease-in-out duration-300 cursor-pointer
           ${path === "/dashboard/upgrade" ? "text-primary font-bold" : ""}

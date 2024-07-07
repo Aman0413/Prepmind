@@ -50,7 +50,7 @@ function ChatBot() {
   return (
     <div>
       <Drawer>
-        <DrawerTrigger>
+        <DrawerTrigger asChild>
           <Button
             variant="outline"
             className="flex items-center gap-2 justify-center z-50  p-2 right-5 fixed bottom-5 "
