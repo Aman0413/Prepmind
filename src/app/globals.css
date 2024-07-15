@@ -161,3 +161,14 @@ body{
     padding: 20px; /* Optional: padding for inner content */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
   }
+
+  /* scroll bar css */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #4745d2;
+    transform-origin: 0%;
+  }

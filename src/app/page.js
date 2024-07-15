@@ -8,6 +8,7 @@ import HowItWorks from "@/components/page_components/HowItWorks";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Typewriter from "typewriter-effect";
+import ScrollTriggerComponent from "@/components/page_components/ScrollTriggerComponent";
 
 export default function Home() {
   return (
@@ -38,36 +39,58 @@ export default function Home() {
             progress with our AI-powered platform.
           </h2>
         </div>
-        <div className="flex items-center gap-4 mt-16">
-          <Link href={"/dashboard"}>
-            <Button size="lg">Get Started</Button>{" "}
-          </Link>
-          <Link href={"#"}>
-            <Button size="lg" variant="outline">
-              Watch Video
-            </Button>
-          </Link>
-        </div>
+        <ScrollTriggerComponent>
+          <div className="flex items-center gap-4 mt-16">
+            <Link href={"/dashboard"}>
+              <Button size="lg">Get Started</Button>{" "}
+            </Link>
+            <Link href={"#"}>
+              <Button size="lg" variant="outline">
+                Watch Video
+              </Button>
+            </Link>
+          </div>
+        </ScrollTriggerComponent>
       </div>
 
       <div className="mt-10 flex flex-col gap-4 items-center justify-center">
-        <FeatureSection />
-        <HowItWorks />
-        <AboutUs />
-        <FAQ />
+        {/* feature section */}
+        <ScrollTriggerComponent>
+          <FeatureSection />
+        </ScrollTriggerComponent>
+
+        {/* HowItWorks section */}
+        <ScrollTriggerComponent>
+          <HowItWorks />
+        </ScrollTriggerComponent>
+
+        {/* AboutUs section */}
+        <ScrollTriggerComponent>
+          <AboutUs />
+        </ScrollTriggerComponent>
+
+        {/* FAQ section */}
+        <ScrollTriggerComponent>
+          <FAQ />
+        </ScrollTriggerComponent>
       </div>
 
-      <div className="my-10 p-4">
-        <Link href={"/dashboard"}>
-          <Button size="lg" className="bg-[#db2877] hover:bg-[#dd2474]">
-            Get Started Today
-          </Button>
-        </Link>
-      </div>
+      <ScrollTriggerComponent>
+        <div className="my-10 p-4">
+          <Link href={"/dashboard"}>
+            <Button size="lg" className="bg-[#db2877] hover:bg-[#dd2474]">
+              Get Started Today
+            </Button>
+          </Link>
+        </div>
+      </ScrollTriggerComponent>
       {/* chat bot */}
       <ChatBot />
 
-      <Footer />
+      {/* footer */}
+      <ScrollTriggerComponent>
+        <Footer />
+      </ScrollTriggerComponent>
     </div>
   );
 }
