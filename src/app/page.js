@@ -12,7 +12,7 @@ import ScrollTriggerComponent from "@/components/page_components/ScrollTriggerCo
 
 export default function Home() {
   return (
-    <div className="my-gradient p-2 md:p-4 flex  flex-col justify-center items-center gap-2  bg-red-300 ">
+    <div className="  my-gradient p-2 md:p-4 flex  flex-col justify-center items-center gap-2  bg-red-300 ">
       <div className=" flex flex-col justify-center items-center gap-5  mt-20">
         <div
           className="w-full flex flex-col justify-center items-center gap-3 p-2 

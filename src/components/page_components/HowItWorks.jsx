@@ -43,6 +43,7 @@ function HowItWorks() {
                   &apos;re preparing for and your experience level.
                 </p>
               </div>
+
               <div>
                 <div className="flex items-center justify-center w-16 h-16 mx-auto bg-[#4745d2] border-2 border-black rounded-full shadow">
                   <span className="text-xl font-semibold  text-white">2</span>
@@ -55,6 +56,7 @@ function HowItWorks() {
                   and experience. Receive real-time feedback as you practice.
                 </p>
               </div>
+
               <div>
                 <div className="flex items-center justify-center w-16 h-16 mx-auto bg-[#4745d2] border-2 border-black rounded-full shadow">
                   <span className="text-xl font-semibold  text-white">3</span>

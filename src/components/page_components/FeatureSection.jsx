@@ -40,6 +40,7 @@ function FeatureSection() {
               </p>
             </div>
           </div>
+
           <div className="col-span-1 flex flex-col items-center gap-6 px-10 py-10 lg:px-4 xl:px-2 bg-white rounded-lg hover:scale-110 transition-all ease-in-out duration-500 hover:shadow-lg m-4 ">
             <div>
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#4745d2] transition ">
@@ -67,6 +68,7 @@ function FeatureSection() {
               </p>
             </div>
           </div>
+
           <div className="col-span-1 flex flex-col items-center gap-6 px-10 py-10 lg:px-4 xl:px-2 bg-white rounded-lg hover:scale-110 transition-all ease-in-out duration-500 hover:shadow-lg m-4 ">
             <div>
               <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#4745d2] transition ">
