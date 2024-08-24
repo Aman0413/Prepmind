@@ -44,9 +44,9 @@ export default function Home() {
             <Link href={"/dashboard"}>
               <Button size="lg">Get Started</Button>{" "}
             </Link>
-            <Link href={"#"}>
+            <Link href={"https://www.youtube.com/watch?v=P1o1ZukhyWY"}>
               <Button size="lg" variant="outline">
-                Watch Video
+                Watch Vidoe
               </Button>
             </Link>
           </div>
